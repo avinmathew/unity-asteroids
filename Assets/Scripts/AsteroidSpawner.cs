@@ -11,6 +11,7 @@ public class AsteroidSpawner : MonoBehaviour
     public float trajectoryVariance = 15f;
 
     private Bounds _screenBounds;
+    private float startNonRandomSpawn = 20;
 
     private void Awake()
     {
@@ -26,20 +27,21 @@ public class AsteroidSpawner : MonoBehaviour
 
     void Spawn()
     {
-        float randomValue = Random.value;
-        if (randomValue >= 0 && randomValue < 0.01)
+        float rnd = Random.value;
+        // 1% chance to spawn from a specific direction
+        if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0 && rnd < 0.01)
         {
             SpawnFromRight(Random.Range(3, 5));
         }
-        else if (randomValue >= 0.01 && randomValue < 0.02)
+        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.01 && rnd < 0.02)
         {
             SpawnFromLeft(Random.Range(3, 5));
         }
-        else if (randomValue >= 0.02 && randomValue < 0.03)
+        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.02 && rnd < 0.03)
         {
             SpawnFromTop(Random.Range(4, 8));
         }
-        else if (randomValue >= 0.03 && randomValue < 0.04)
+        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.03 && rnd < 0.04)
         {
             SpawnFromBottom(Random.Range(4, 8));
         }
