@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
         }
 
         GamePlaying = true;
+        Player.gameObject.SetActive(true);
         Player.Respawn(showShield: false);
     }
 }
