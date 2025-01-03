@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Drawing;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
@@ -8,7 +7,9 @@ public class AsteroidSpawner : MonoBehaviour
     public float SpawnRate = 1f;
     public float SpawnDistance = 15f;
     public float SpawnAmount = 0f;
-    public float trajectoryVariance = 15f;
+    public float TrajectoryVariance = 15f;
+
+    public System.DateTime SpawningStartedAt;
 
     private Bounds _screenBounds;
     private float startNonRandomSpawn = 20;
@@ -22,26 +23,30 @@ public class AsteroidSpawner : MonoBehaviour
 
     void Start()
     {
+        SpawningStartedAt = System.DateTime.Now;
         InvokeRepeating(nameof(Spawn), SpawnRate, SpawnRate);
     }
 
     void Spawn()
     {
         float rnd = Random.value;
+        System.TimeSpan sinceStart = System.DateTime.Now.Subtract(SpawningStartedAt);
+        // Increase the amount of random spawn each minute
+        SpawnAmount = (float)sinceStart.TotalSeconds / 60;
         // 1% chance to spawn from a specific direction
-        if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0 && rnd < 0.01)
+        if (sinceStart.TotalSeconds > startNonRandomSpawn && rnd >= 0 && rnd < 0.01)
         {
             SpawnFromRight(Random.Range(3, 5));
         }
-        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.01 && rnd < 0.02)
+        else if (sinceStart.TotalSeconds > startNonRandomSpawn && rnd >= 0.01 && rnd < 0.02)
         {
             SpawnFromLeft(Random.Range(3, 5));
         }
-        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.02 && rnd < 0.03)
+        else if (sinceStart.TotalSeconds > startNonRandomSpawn && rnd >= 0.02 && rnd < 0.03)
         {
             SpawnFromTop(Random.Range(4, 8));
         }
-        else if (Time.realtimeSinceStartup > startNonRandomSpawn && rnd >= 0.03 && rnd < 0.04)
+        else if (sinceStart.TotalSeconds > startNonRandomSpawn && rnd >= 0.03 && rnd < 0.04)
         {
             SpawnFromBottom(Random.Range(4, 8));
         }
@@ -49,12 +54,6 @@ public class AsteroidSpawner : MonoBehaviour
         {
             SpawnRandom();
         }
-    }
-
-    private void FixedUpdate()
-    {
-        // Increase the amount of random spawn each minute
-        SpawnAmount = Time.realtimeSinceStartup / 60f;
     }
 
     void SpawnRandom()
@@ -66,7 +65,7 @@ public class AsteroidSpawner : MonoBehaviour
             Vector3 direction = Random.insideUnitCircle.normalized * SpawnDistance;
             Vector3 position = transform.position + direction;
 
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-TrajectoryVariance, TrajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid prefab = AsteroidPrefabs[Random.Range(0, AsteroidPrefabs.Length)];
@@ -89,7 +88,7 @@ public class AsteroidSpawner : MonoBehaviour
             float offsetY = (maxY - minY) / numberOfAsteroids * i + minY + asteroidSize;
             Vector3 position = new Vector3(_screenBounds.min.x - asteroidSize, offsetY);
 
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-TrajectoryVariance, TrajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid prefab = AsteroidPrefabs[Random.Range(0, AsteroidPrefabs.Length)];
@@ -111,7 +110,7 @@ public class AsteroidSpawner : MonoBehaviour
             float offsetY = (maxY - minY) / numberOfAsteroids * i + minY + asteroidSize;
             Vector3 position = new Vector3(_screenBounds.max.x + asteroidSize, offsetY);
 
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-TrajectoryVariance, TrajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid prefab = AsteroidPrefabs[Random.Range(0, AsteroidPrefabs.Length)];
@@ -133,7 +132,7 @@ public class AsteroidSpawner : MonoBehaviour
             float offsetX = (maxX - minX) / numberOfAsteroids * i + minX + asteroidSize;
             Vector3 position = new Vector3(offsetX, _screenBounds.max.y + asteroidSize);
 
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-TrajectoryVariance, TrajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid prefab = AsteroidPrefabs[Random.Range(0, AsteroidPrefabs.Length)];
@@ -154,7 +153,7 @@ public class AsteroidSpawner : MonoBehaviour
             float offsetX = (maxX - minX) / numberOfAsteroids * i + minX + asteroidSize;
             Vector3 position = new Vector3(offsetX, _screenBounds.min.y - asteroidSize);
 
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float variance = Random.Range(-TrajectoryVariance, TrajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Asteroid prefab = AsteroidPrefabs[Random.Range(0, AsteroidPrefabs.Length)];

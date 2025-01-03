@@ -5479,8 +5479,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287715784
-  m_fontColor: {r: 0.78616345, g: 0.3485818, b: 0.56984645, a: 1}
+    rgba: 4284336217
+  m_fontColor: {r: 0.34901962, g: 0.78431374, b: 0.36399123, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5497,8 +5497,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5535,7 +5535,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -172.82, y: 0, z: -247.3136, w: 0}
+  m_margin: {x: -342.69592, y: 0, z: -247.3136, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6156,7 +6156,7 @@ MonoBehaviour:
   SpawnRate: 1
   SpawnDistance: 15
   SpawnAmount: 0
-  trajectoryVariance: 15
+  TrajectoryVariance: 15
 --- !u!4 &1197011320
 Transform:
   m_ObjectHideFlags: 0
@@ -6239,8 +6239,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287781321
-  m_fontColor: {r: 0.7882353, g: 0.34901962, b: 0.57254905, a: 1}
+    rgba: 4284336217
+  m_fontColor: {r: 0.34901962, g: 0.78431374, b: 0.3647059, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6257,8 +6257,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6295,7 +6295,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -178.93494, y: 0, z: -247.3136, w: 0}
+  m_margin: {x: -431.00885, y: 0, z: -247.3136, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11435,6 +11435,7 @@ MonoBehaviour:
   GameOverText: {fileID: 973021469}
   PlayAgainText: {fileID: 2088346947}
   Player: {fileID: 2109846993}
+  AsteroidSpawner: {fileID: 1197011319}
   Lives: 1
   RespawnTime: 3
   Score: 0
@@ -11911,6 +11912,7 @@ GameObject:
   - component: {fileID: 2109846995}
   - component: {fileID: 2109846996}
   - component: {fileID: 2109846993}
+  - component: {fileID: 2109846997}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -12090,6 +12092,18 @@ PolygonCollider2D:
       - {x: 0, y: 0.35}
       - {x: -0.35, y: -0.35}
   m_UseDelaunayMesh: 0
+--- !u!114 &2109846997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109846990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4bb893d7734874d983c35c723d023b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

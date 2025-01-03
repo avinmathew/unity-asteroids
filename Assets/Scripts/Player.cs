@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IWarpable
 {
     public AudioSource AudioSource;
     public AudioClip BulletShootClip;
@@ -137,38 +137,18 @@ public class Player : MonoBehaviour
         {
             AudioSource.PlayOneShot(ThrustClip);
         }
-
-        // Check if player is beyond the bounds and change position to other side
-        // Offset screen bounds by 0.5 because the position of the player is in the centre so
-        // this ensures player is entirely off the screen before warping to the other side
-        //
-        // Remove trails when warping otherwise trails end up across the screen. For some reason
-        // TrailRenderer.Clear() doesn't work, so disable and then enable
-        if (_rigidbody.position.x > _screenBounds.max.x + 0.5f)
-        {
-            TrailRenderer.enabled = false;
-            _rigidbody.position = new Vector2(_screenBounds.min.x - 0.5f, _rigidbody.position.y);
-            StartCoroutine(EnableTrails());
-        }
-        else if (_rigidbody.position.x < _screenBounds.min.x - 0.5f)
-        {
-            TrailRenderer.enabled = false;
-            _rigidbody.position = new Vector2(_screenBounds.max.x + 0.5f, _rigidbody.position.y);
-            StartCoroutine(EnableTrails());
-        }
-        else if (_rigidbody.position.y > _screenBounds.max.y + 0.5f)
-        {
-            TrailRenderer.enabled = false;
-            _rigidbody.position = new Vector2(_rigidbody.position.x, _screenBounds.min.y - 0.5f);
-            StartCoroutine(EnableTrails());
-        }
-        else if (_rigidbody.position.y < _screenBounds.min.y - 0.5f)
-        {
-            TrailRenderer.enabled = false;
-            _rigidbody.position = new Vector2(_rigidbody.position.x, _screenBounds.max.y + 0.5f);
-            StartCoroutine(EnableTrails());
-        }
     }
+
+    public void OnWarpEnter()
+    {
+        TrailRenderer.enabled = false;
+    }
+
+    public void OnWarpExit()
+    {
+        StartCoroutine(EnableTrails());
+    }
+
 
     IEnumerator EnableTrails()
     {

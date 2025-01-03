@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI PlayAgainText;
 
     public Player Player;
+    public AsteroidSpawner AsteroidSpawner;
     
     public int Lives = 1;
     public float RespawnTime = 3.0f; // seconds
@@ -116,8 +115,9 @@ public class GameManager : MonoBehaviour
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-#endif
+#elif !UNITY_WEBGL
             Application.Quit();
+#endif
         }
 
         if (GamePlaying == false)
@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(a.gameObject);
         }
+        AsteroidSpawner.SpawningStartedAt = System.DateTime.Now;
 
         GamePlaying = true;
         Player.gameObject.SetActive(true);

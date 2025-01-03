@@ -12,14 +12,14 @@ public class Asteroid : MonoBehaviour
     public float MaxSize = 1.5f;
     public float Speed = 5f;
 
-    private Rigidbody2D _rigidBody;
+    private Rigidbody2D _rigidbody;
     private GameManager _gameManager;
     private ParticleSystem _explosion;
     private AudioSource _audioSource;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _gameManager = FindAnyObjectByType<GameManager>();
         _explosion = FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None).First(x => x.name == "Asteroid Explosion");
         _audioSource = FindAnyObjectByType<AudioSource>();
@@ -33,12 +33,12 @@ public class Asteroid : MonoBehaviour
         transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
         transform.localScale = new Vector3(size, size);
 
-        _rigidBody.mass = size;
+        _rigidbody.mass = size;
     }
 
     public void SetTrajectory(Vector3 direction)
     {
-        _rigidBody.AddForce(direction * Speed);
+        _rigidbody.AddForce(direction * Speed);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
